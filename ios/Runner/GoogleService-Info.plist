@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>247083525839-d09uj1c2dpje7kfcovavrjmkgthfia0q.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.247083525839-d09uj1c2dpje7kfcovavrjmkgthfia0q</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>247083525839-mdcpusdsmudt9qqniebup2d0d32ml8m0.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCORFAqMmwimQ45XiUyzz17WwiWd7n6I4U</string>
+	<key>GCM_SENDER_ID</key>
+	<string>247083525839</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.crisley.agendashows</string>
+	<key>PROJECT_ID</key>
+	<string>agenda-de-shows-a3b5b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>agenda-de-shows-a3b5b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:247083525839:ios:d57b37aec3c0f845e439ba</string>
+</dict>
+</plist>
