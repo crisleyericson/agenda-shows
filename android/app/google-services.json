@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "247083525839",
+    "project_id": "agenda-de-shows-a3b5b",
+    "storage_bucket": "agenda-de-shows-a3b5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:247083525839:android:9bb58edd41f8452ae439ba",
+        "android_client_info": {
+          "package_name": "com.crisley.agendashows"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "247083525839-mdcpusdsmudt9qqniebup2d0d32ml8m0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.crisley.agendashows",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "247083525839-68jdu81iibo5g4jjregqqaso32r1gc3c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBp6yWf3en4H6a0hVceMkbAMo_ZLZ6qNKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "247083525839-68jdu81iibo5g4jjregqqaso32r1gc3c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "247083525839-d09uj1c2dpje7kfcovavrjmkgthfia0q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.crisley.agendashows"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
