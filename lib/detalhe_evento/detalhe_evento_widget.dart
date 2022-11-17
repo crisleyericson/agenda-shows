@@ -1,10 +1,14 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_expanded_image_view.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../custom_code/actions/index.dart' as actions;
 import 'package:map_launcher/map_launcher.dart' as $ml;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 class DetalheEventoWidget extends StatefulWidget {
   const DetalheEventoWidget({
@@ -61,14 +65,57 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                       children: [
                         Stack(
                           children: [
-                            Image.network(
-                              valueOrDefault<String>(
-                                widget.evento!.flyer,
-                                'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
+                            InkWell(
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    type: PageTransitionType.fade,
+                                    child: FlutterFlowExpandedImageView(
+                                      image: Image.network(
+                                        valueOrDefault<String>(
+                                          widget.evento!.flyer,
+                                          'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
+                                        ),
+                                        fit: BoxFit.contain,
+                                      ),
+                                      allowRotation: true,
+                                      tag: valueOrDefault<String>(
+                                        widget.evento!.flyer,
+                                        'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
+                                      ),
+                                      useHeroAnimation: true,
+                                    ),
+                                  ),
+                                );
+                              },
+                              onDoubleTap: () async {
+                                await actions.downloadImage(
+                                  valueOrDefault<String>(
+                                    widget.evento!.flyer,
+                                    'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
+                                  ),
+                                  widget.evento != null,
+                                  widget.evento != null,
+                                  widget.evento != null,
+                                );
+                              },
+                              child: Hero(
+                                tag: valueOrDefault<String>(
+                                  widget.evento!.flyer,
+                                  'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
+                                ),
+                                transitionOnUserGestures: true,
+                                child: Image.network(
+                                  valueOrDefault<String>(
+                                    widget.evento!.flyer,
+                                    'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
+                                  ),
+                                  width: double.infinity,
+                                  height: 300,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              width: double.infinity,
-                              height: 300,
-                              fit: BoxFit.cover,
                             ),
                             Align(
                               alignment: AlignmentDirectional(0, 0),
@@ -108,7 +155,7 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                                     child: Icon(
                                       Icons.arrow_back_rounded,
                                       color: FlutterFlowTheme.of(context)
-                                          .tertiaryColor,
+                                          .primaryBackground,
                                       size: 24,
                                     ),
                                   ),
@@ -123,27 +170,32 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 4, 0, 4),
-                                child: Text(
-                                  'Cachê: ${formatNumber(
-                                    widget.evento!.cache,
-                                    formatType: FormatType.custom,
-                                    currency: 'R\$ ',
-                                    format: '',
-                                    locale: '',
-                                  )}',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText2
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                              if (valueOrDefault<bool>(
+                                      currentUserDocument?.integrante, false) ==
+                                  true)
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 4, 0, 4),
+                                  child: AuthUserStreamWidget(
+                                    child: Text(
+                                      'Cachê: ${formatNumber(
+                                        widget.evento!.cache,
+                                        formatType: FormatType.custom,
+                                        currency: 'R\$ ',
+                                        format: '',
+                                        locale: '',
+                                      )}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText2
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ),
                                 ),
-                              ),
                             ],
                           ),
                         ),
@@ -193,67 +245,79 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 8),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
-                                child: Icon(
-                                  Icons.schedule,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
-                                  size: 20,
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
-                                child: Text(
-                                  dateTimeFormat(
-                                      'd/M H:mm', widget.evento!.dataHora!),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(24, 0, 0, 4),
-                                child: Icon(
-                                  Icons.location_on_sharp,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
-                                  size: 20,
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
-                                child: InkWell(
-                                  onTap: () async {
-                                    await launchMap(
-                                      mapType: $ml.MapType.waze,
-                                      address:
-                                          '${detalheEventoLocaisRecord.endereco} ${detalheEventoLocaisRecord.numero?.toString()} ${detalheEventoLocaisRecord.bairro} ${detalheEventoLocaisRecord.cidade}',
-                                      title: '',
-                                    );
-                                  },
-                                  child: Text(
-                                    '${detalheEventoLocaisRecord.bairro} - ${detalheEventoLocaisRecord.cidade}',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 4),
+                                    child: Icon(
+                                      Icons.schedule,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      size: 20,
+                                    ),
                                   ),
-                                ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        4, 0, 0, 0),
+                                    child: Text(
+                                      dateTimeFormat(
+                                          'd/M H:mm', widget.evento!.dataHora!),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        24, 0, 0, 4),
+                                    child: Icon(
+                                      Icons.location_on_sharp,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        4, 0, 0, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await launchMap(
+                                          mapType: $ml.MapType.waze,
+                                          address:
+                                              '${detalheEventoLocaisRecord.endereco} ${detalheEventoLocaisRecord.numero?.toString()} ${detalheEventoLocaisRecord.bairro} ${detalheEventoLocaisRecord.cidade}',
+                                          title: '',
+                                        );
+                                      },
+                                      child: Text(
+                                        'Abrir endereço no Waze',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

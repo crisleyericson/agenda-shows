@@ -79,20 +79,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'home',
               path: 'home',
+              requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'home')
                   : HomeWidget(),
             ),
             FFRoute(
-              name: 'eventos',
-              path: 'eventos',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'eventos')
-                  : EventosWidget(),
-            ),
-            FFRoute(
               name: 'detalhe_evento',
               path: 'detalheEvento',
+              requireAuth: true,
               asyncParams: {
                 'evento': getDoc('eventos', EventosRecord.serializer),
               },
@@ -101,8 +96,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
+              name: 'eventos',
+              path: 'eventos',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'eventos')
+                  : EventosWidget(),
+            ),
+            FFRoute(
               name: 'locais',
               path: 'locais',
+              requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'locais')
                   : LocaisWidget(),

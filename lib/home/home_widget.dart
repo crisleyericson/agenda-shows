@@ -1,13 +1,11 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_expanded_image_view.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -178,50 +176,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  InkWell(
-                                    onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          type: PageTransitionType.fade,
-                                          child: FlutterFlowExpandedImageView(
-                                            image: Image.network(
-                                              valueOrDefault<String>(
-                                                wrapEventosRecord.flyer,
-                                                'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
-                                              ),
-                                              fit: BoxFit.contain,
-                                            ),
-                                            allowRotation: true,
-                                            tag: valueOrDefault<String>(
-                                              wrapEventosRecord.flyer,
-                                              'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=' +
-                                                  '$wrapIndex',
-                                            ),
-                                            useHeroAnimation: true,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Hero(
-                                      tag: valueOrDefault<String>(
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      valueOrDefault<String>(
                                         wrapEventosRecord.flyer,
-                                        'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=' +
-                                            '$wrapIndex',
+                                        'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
                                       ),
-                                      transitionOnUserGestures: true,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          valueOrDefault<String>(
-                                            wrapEventosRecord.flyer,
-                                            'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
-                                          ),
-                                          width: double.infinity,
-                                          height: 115,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
+                                      width: double.infinity,
+                                      height: 115,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                   Padding(
