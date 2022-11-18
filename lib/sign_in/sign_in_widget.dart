@@ -415,34 +415,6 @@ class _SignInWidgetState extends State<SignInWidget> {
                                   fillColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   icon: FaIcon(
-                                    FontAwesomeIcons.google,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 24,
-                                  ),
-                                  onPressed: () async {
-                                    GoRouter.of(context).prepareAuthEvent();
-                                    final user =
-                                        await signInWithGoogle(context);
-                                    if (user == null) {
-                                      return;
-                                    }
-
-                                    context.goNamedAuth('home', mounted);
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                                child: FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 30,
-                                  borderWidth: 1,
-                                  buttonSize: 50,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  icon: FaIcon(
                                     FontAwesomeIcons.facebook,
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,

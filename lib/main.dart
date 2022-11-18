@@ -60,8 +60,10 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  void setLocale(String language) =>
-      setState(() => _locale = createLocale(language));
+  void setLocale(String language) {
+    setState(() => _locale = createLocale(language));
+  }
+
   void setThemeMode(ThemeMode mode) => setState(() {
         _themeMode = mode;
       });
@@ -152,7 +154,7 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.event_note,
               size: 32,
             ),
-            label: 'Evento',
+            label: 'Eventos',
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -164,7 +166,7 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.place_sharp,
               size: 32,
             ),
-            label: 'Home',
+            label: 'Locais',
             tooltip: '',
           )
         ],
