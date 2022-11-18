@@ -95,9 +95,9 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                                     widget.evento!.flyer,
                                     'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
                                   ),
-                                  widget.evento != null,
-                                  widget.evento != null,
-                                  widget.evento != null,
+                                  true,
+                                  true,
+                                  true,
                                 );
                               },
                               child: Hero(
