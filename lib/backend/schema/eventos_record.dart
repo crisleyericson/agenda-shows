@@ -16,8 +16,6 @@ abstract class EventosRecord
 
   String? get descricao;
 
-  String? get flyer;
-
   DocumentReference? get local;
 
   String? get nome;
@@ -26,6 +24,8 @@ abstract class EventosRecord
 
   String? get telefoneContratante;
 
+  bool? get particular;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -33,10 +33,10 @@ abstract class EventosRecord
   static void _initializeBuilder(EventosRecordBuilder builder) => builder
     ..cache = 0
     ..descricao = ''
-    ..flyer = ''
     ..nome = ''
     ..nomeContratante = ''
-    ..telefoneContratante = '';
+    ..telefoneContratante = ''
+    ..particular = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('eventos');
@@ -63,11 +63,11 @@ Map<String, dynamic> createEventosRecordData({
   int? cache,
   DateTime? dataHora,
   String? descricao,
-  String? flyer,
   DocumentReference? local,
   String? nome,
   String? nomeContratante,
   String? telefoneContratante,
+  bool? particular,
 }) {
   final firestoreData = serializers.toFirestore(
     EventosRecord.serializer,
@@ -76,11 +76,11 @@ Map<String, dynamic> createEventosRecordData({
         ..cache = cache
         ..dataHora = dataHora
         ..descricao = descricao
-        ..flyer = flyer
         ..local = local
         ..nome = nome
         ..nomeContratante = nomeContratante
-        ..telefoneContratante = telefoneContratante,
+        ..telefoneContratante = telefoneContratante
+        ..particular = particular,
     ),
   );
 

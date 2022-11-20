@@ -8,6 +8,9 @@ import 'auth/auth_util.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter/foundation.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
@@ -15,6 +18,10 @@ import 'index.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  if (!kIsWeb) {
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  }
 
   runApp(MyApp());
 }
@@ -116,6 +123,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'home': HomeWidget(),
       'eventos': EventosWidget(),
       'locais': LocaisWidget(),
+      'extratoFinanceiro': ExtratoFinanceiroWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
@@ -129,7 +137,7 @@ class _NavBarPageState extends State<NavBarPage> {
         backgroundColor: Colors.white,
         selectedItemColor: FlutterFlowTheme.of(context).primaryColor,
         unselectedItemColor: Color(0x8A000000),
-        showSelectedLabels: false,
+        showSelectedLabels: true,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
@@ -147,11 +155,11 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.event,
+              Icons.event_outlined,
               size: 24,
             ),
             activeIcon: Icon(
-              Icons.event_note,
+              Icons.event,
               size: 32,
             ),
             label: 'Eventos',
@@ -159,14 +167,26 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.place,
+              Icons.place_outlined,
               size: 24,
             ),
             activeIcon: Icon(
-              Icons.place_sharp,
+              Icons.place,
               size: 32,
             ),
             label: 'Locais',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.attach_money_outlined,
+              size: 24,
+            ),
+            activeIcon: Icon(
+              Icons.attach_money,
+              size: 32,
+            ),
+            label: ' Financeiro',
             tooltip: '',
           )
         ],

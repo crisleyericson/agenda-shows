@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'schema/users_record.dart';
 import 'schema/locais_record.dart';
 import 'schema/eventos_record.dart';
+import 'schema/financeiro_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -17,6 +18,7 @@ export 'schema/serializers.dart';
 export 'schema/users_record.dart';
 export 'schema/locais_record.dart';
 export 'schema/eventos_record.dart';
+export 'schema/financeiro_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Stream<List<UsersRecord>> queryUsersRecord({
@@ -138,6 +140,48 @@ Future<FFFirestorePage<EventosRecord>> queryEventosRecordPage({
     queryCollectionPage(
       EventosRecord.collection,
       EventosRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query FinanceiroRecords (as a Stream and as a Future).
+Stream<List<FinanceiroRecord>> queryFinanceiroRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      FinanceiroRecord.collection,
+      FinanceiroRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<FinanceiroRecord>> queryFinanceiroRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      FinanceiroRecord.collection,
+      FinanceiroRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<FinanceiroRecord>> queryFinanceiroRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      FinanceiroRecord.collection,
+      FinanceiroRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

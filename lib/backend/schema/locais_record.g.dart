@@ -75,6 +75,13 @@ class _$LocaisRecordSerializer implements StructuredSerializer<LocaisRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.logomarca;
+    if (value != null) {
+      result
+        ..add('logomarca')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -130,6 +137,10 @@ class _$LocaisRecordSerializer implements StructuredSerializer<LocaisRecord> {
           result.telefone = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'logomarca':
+          result.logomarca = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -161,6 +172,8 @@ class _$LocaisRecord extends LocaisRecord {
   @override
   final String? telefone;
   @override
+  final String? logomarca;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$LocaisRecord([void Function(LocaisRecordBuilder)? updates]) =>
@@ -175,6 +188,7 @@ class _$LocaisRecord extends LocaisRecord {
       this.numero,
       this.observacao,
       this.telefone,
+      this.logomarca,
       this.ffRef})
       : super._();
 
@@ -197,6 +211,7 @@ class _$LocaisRecord extends LocaisRecord {
         numero == other.numero &&
         observacao == other.observacao &&
         telefone == other.telefone &&
+        logomarca == other.logomarca &&
         ffRef == other.ffRef;
   }
 
@@ -208,13 +223,17 @@ class _$LocaisRecord extends LocaisRecord {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, bairro.hashCode), cidade.hashCode),
-                                endereco.hashCode),
-                            nomeContato.hashCode),
-                        nomeLocal.hashCode),
-                    numero.hashCode),
-                observacao.hashCode),
-            telefone.hashCode),
+                            $jc(
+                                $jc(
+                                    $jc($jc(0, bairro.hashCode),
+                                        cidade.hashCode),
+                                    endereco.hashCode),
+                                nomeContato.hashCode),
+                            nomeLocal.hashCode),
+                        numero.hashCode),
+                    observacao.hashCode),
+                telefone.hashCode),
+            logomarca.hashCode),
         ffRef.hashCode));
   }
 
@@ -229,6 +248,7 @@ class _$LocaisRecord extends LocaisRecord {
           ..add('numero', numero)
           ..add('observacao', observacao)
           ..add('telefone', telefone)
+          ..add('logomarca', logomarca)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -270,6 +290,10 @@ class LocaisRecordBuilder
   String? get telefone => _$this._telefone;
   set telefone(String? telefone) => _$this._telefone = telefone;
 
+  String? _logomarca;
+  String? get logomarca => _$this._logomarca;
+  set logomarca(String? logomarca) => _$this._logomarca = logomarca;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -289,6 +313,7 @@ class LocaisRecordBuilder
       _numero = $v.numero;
       _observacao = $v.observacao;
       _telefone = $v.telefone;
+      _logomarca = $v.logomarca;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -320,6 +345,7 @@ class LocaisRecordBuilder
             numero: numero,
             observacao: observacao,
             telefone: telefone,
+            logomarca: logomarca,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

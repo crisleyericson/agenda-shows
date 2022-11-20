@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import '../flutter_flow_theme.dart';
@@ -85,23 +86,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : HomeWidget(),
             ),
             FFRoute(
-              name: 'detalhe_evento',
-              path: 'detalheEvento',
-              requireAuth: true,
-              asyncParams: {
-                'evento': getDoc('eventos', EventosRecord.serializer),
-              },
-              builder: (context, params) => DetalheEventoWidget(
-                evento: params.getParam('evento', ParamType.Document),
-              ),
-            ),
-            FFRoute(
               name: 'eventos',
               path: 'eventos',
               requireAuth: true,
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'eventos')
                   : EventosWidget(),
+            ),
+            FFRoute(
+              name: 'detalhe_evento',
+              path: 'detalheEvento',
+              asyncParams: {
+                'evento': getDoc('eventos', EventosRecord.serializer),
+              },
+              builder: (context, params) => DetalheEventoWidget(
+                evento: params.getParam('evento', ParamType.Document),
+              ),
             ),
             FFRoute(
               name: 'locais',
@@ -120,6 +120,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'signUp',
               path: 'signUp',
               builder: (context, params) => SignUpWidget(),
+            ),
+            FFRoute(
+              name: 'extratoFinanceiro',
+              path: 'extratoFinanceiro',
+              requireAuth: true,
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'extratoFinanceiro')
+                  : ExtratoFinanceiroWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
@@ -295,8 +303,8 @@ class FFRoute {
               ? Container(
                   color: Colors.transparent,
                   child: Image.asset(
-                    'assets/images/images_(1).jpg',
-                    fit: BoxFit.fitHeight,
+                    'assets/images/Hotpot_2.png',
+                    fit: BoxFit.cover,
                   ),
                 )
               : page;
