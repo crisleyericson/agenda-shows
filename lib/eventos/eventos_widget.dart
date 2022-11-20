@@ -1,9 +1,14 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -14,7 +19,22 @@ class EventosWidget extends StatefulWidget {
   _EventosWidgetState createState() => _EventosWidgetState();
 }
 
-class _EventosWidgetState extends State<EventosWidget> {
+class _EventosWidgetState extends State<EventosWidget>
+    with TickerProviderStateMixin {
+  final animationsMap = {
+    'columnOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
+    ),
+  };
   PagingController<DocumentSnapshot?, EventosRecord>? _pagingController;
   Query? _pagingQuery;
   List<StreamSubscription?> _streamSubscriptions = [];
@@ -25,6 +45,7 @@ class _EventosWidgetState extends State<EventosWidget> {
   void initState() {
     super.initState();
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'eventos'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -53,15 +74,18 @@ class _EventosWidgetState extends State<EventosWidget> {
             size: 30,
           ),
           onPressed: () async {
+            logFirebaseEvent('EVENTOS_arrow_back_rounded_ICN_ON_TAP');
+            logFirebaseEvent('IconButton_navigate_to');
+
             context.pushNamed('home');
           },
         ),
         title: Text(
           'Todos os Eventos',
+          textAlign: TextAlign.center,
           style: FlutterFlowTheme.of(context).title2.override(
                 fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 22,
+                color: FlutterFlowTheme.of(context).primaryBackground,
               ),
         ),
         actions: [],
@@ -139,8 +163,9 @@ class _EventosWidgetState extends State<EventosWidget> {
                       child: SizedBox(
                         width: 50,
                         height: 50,
-                        child: CircularProgressIndicator(
+                        child: SpinKitRing(
                           color: FlutterFlowTheme.of(context).primaryColor,
+                          size: 50,
                         ),
                       ),
                     ),
@@ -166,8 +191,8 @@ class _EventosWidgetState extends State<EventosWidget> {
                           ),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                            child: StreamBuilder<LocaisRecord>(
-                              stream: LocaisRecord.getDocument(
+                            child: FutureBuilder<LocaisRecord>(
+                              future: LocaisRecord.getDocumentOnce(
                                   listViewEventosRecord.local!),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
@@ -176,9 +201,10 @@ class _EventosWidgetState extends State<EventosWidget> {
                                     child: SizedBox(
                                       width: 50,
                                       height: 50,
-                                      child: CircularProgressIndicator(
+                                      child: SpinKitRing(
                                         color: FlutterFlowTheme.of(context)
                                             .primaryColor,
+                                        size: 50,
                                       ),
                                     ),
                                   );
@@ -186,6 +212,10 @@ class _EventosWidgetState extends State<EventosWidget> {
                                 final rowLocaisRecord = snapshot.data!;
                                 return InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'EVENTOS_PAGE_Row_krc1sody_ON_TAP');
+                                    logFirebaseEvent('Row_navigate_to');
+
                                     context.pushNamed(
                                       'detalhe_evento',
                                       queryParams: {
@@ -210,7 +240,7 @@ class _EventosWidgetState extends State<EventosWidget> {
                                               BorderRadius.circular(6),
                                           child: Image.network(
                                             valueOrDefault<String>(
-                                              listViewEventosRecord.flyer,
+                                              rowLocaisRecord.logomarca,
                                               'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
                                             ),
                                             width: 80,
@@ -243,11 +273,11 @@ class _EventosWidgetState extends State<EventosWidget> {
                                                       child: SizedBox(
                                                         width: 50,
                                                         height: 50,
-                                                        child:
-                                                            CircularProgressIndicator(
+                                                        child: SpinKitRing(
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryColor,
+                                                          size: 50,
                                                         ),
                                                       ),
                                                     );
@@ -301,24 +331,30 @@ class _EventosWidgetState extends State<EventosWidget> {
                                               size: 24,
                                             ),
                                           ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 12, 4, 8),
-                                            child: Text(
-                                              formatNumber(
-                                                listViewEventosRecord.cache!,
-                                                formatType: FormatType.decimal,
-                                                decimalType:
-                                                    DecimalType.commaDecimal,
-                                                currency: 'R\$ ',
-                                              ),
-                                              textAlign: TextAlign.end,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                          if (valueOrDefault<bool>(
+                                              currentUserDocument?.integrante,
+                                              false))
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 12, 4, 8),
+                                              child: AuthUserStreamWidget(
+                                                child: Text(
+                                                  formatNumber(
+                                                    listViewEventosRecord
+                                                        .cache!,
+                                                    formatType:
+                                                        FormatType.decimal,
+                                                    decimalType: DecimalType
+                                                        .commaDecimal,
+                                                    currency: 'R\$ ',
+                                                  ),
+                                                  textAlign: TextAlign.end,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyText1,
+                                                ),
+                                              ),
                                             ),
-                                          ),
                                         ],
                                       ),
                                     ],
@@ -335,7 +371,7 @@ class _EventosWidgetState extends State<EventosWidget> {
               ),
             ],
           ),
-        ),
+        ).animateOnPageLoad(animationsMap['columnOnPageLoadAnimation']!),
       ),
     );
   }

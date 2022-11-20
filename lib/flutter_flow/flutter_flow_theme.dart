@@ -27,6 +27,11 @@ abstract class FlutterFlowTheme {
   late Color textColor;
   late Color backgroundComponents;
   late Color customColor1;
+  late Color maximumBlueGreen;
+  late Color plumpPurple;
+  late Color platinum;
+  late Color ashGray;
+  late Color darkSeaGreen;
 
   String get title1Family => typography.title1Family;
   TextStyle get title1 => typography.title1;
@@ -47,12 +52,12 @@ abstract class FlutterFlowTheme {
 }
 
 class LightModeTheme extends FlutterFlowTheme {
-  late Color primaryColor = const Color(0xFF4B39EF);
-  late Color secondaryColor = const Color(0xFF39D2C0);
-  late Color tertiaryColor = const Color(0xFFEE8B60);
+  late Color primaryColor = const Color(0xFFFF7900);
+  late Color secondaryColor = const Color(0xFFBF600A);
+  late Color tertiaryColor = const Color(0xFF984800);
   late Color alternate = const Color(0xFFFF5963);
-  late Color primaryBackground = const Color(0xFFF1F4F8);
-  late Color secondaryBackground = const Color(0xFFFFFFFF);
+  late Color primaryBackground = const Color(0xFFFCF8F4);
+  late Color secondaryBackground = const Color(0xFFDDD7D1);
   late Color primaryText = const Color(0xFF101213);
   late Color secondaryText = const Color(0xFF57636C);
 
@@ -66,6 +71,11 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color textColor = Color(0xFF1E2429);
   late Color backgroundComponents = Color(0xFF1D2428);
   late Color customColor1 = Color(0xFF2FB73C);
+  late Color maximumBlueGreen = Color(0xFF59C3C3);
+  late Color plumpPurple = Color(0xFF52489C);
+  late Color platinum = Color(0xFFEBEBEB);
+  late Color ashGray = Color(0xFFCAD2C5);
+  late Color darkSeaGreen = Color(0xFF84A98C);
 }
 
 abstract class Typography {

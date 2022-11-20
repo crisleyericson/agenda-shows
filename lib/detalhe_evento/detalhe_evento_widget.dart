@@ -1,14 +1,12 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_expanded_image_view.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../custom_code/actions/index.dart' as actions;
 import 'package:map_launcher/map_launcher.dart' as $ml;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 
 class DetalheEventoWidget extends StatefulWidget {
   const DetalheEventoWidget({
@@ -28,7 +26,8 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
   @override
   void initState() {
     super.initState();
-
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'detalhe_evento'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -43,8 +42,9 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
             child: SizedBox(
               width: 50,
               height: 50,
-              child: CircularProgressIndicator(
+              child: SpinKitRing(
                 color: FlutterFlowTheme.of(context).primaryColor,
+                size: 50,
               ),
             ),
           );
@@ -65,57 +65,14 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                       children: [
                         Stack(
                           children: [
-                            InkWell(
-                              onTap: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: FlutterFlowExpandedImageView(
-                                      image: Image.network(
-                                        valueOrDefault<String>(
-                                          widget.evento!.flyer,
-                                          'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
-                                        ),
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: true,
-                                      tag: valueOrDefault<String>(
-                                        widget.evento!.flyer,
-                                        'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
-                                      ),
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              onDoubleTap: () async {
-                                await actions.downloadImage(
-                                  valueOrDefault<String>(
-                                    widget.evento!.flyer,
-                                    'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
-                                  ),
-                                  true,
-                                  true,
-                                  true,
-                                );
-                              },
-                              child: Hero(
-                                tag: valueOrDefault<String>(
-                                  widget.evento!.flyer,
-                                  'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
-                                ),
-                                transitionOnUserGestures: true,
-                                child: Image.network(
-                                  valueOrDefault<String>(
-                                    widget.evento!.flyer,
-                                    'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
-                                  ),
-                                  width: double.infinity,
-                                  height: 300,
-                                  fit: BoxFit.cover,
-                                ),
+                            Image.network(
+                              valueOrDefault<String>(
+                                detalheEventoLocaisRecord.logomarca,
+                                'https://media.istockphoto.com/id/1255230725/pt/vetorial/music-band-concert-silhouettes.jpg?s=612x612&w=0&k=20&c=3cEZElLWuCSOXZtHTAIot8mIED1TF4IHIOEsekVlT8Y=',
                               ),
+                              width: double.infinity,
+                              height: 300,
+                              fit: BoxFit.cover,
                             ),
                             Align(
                               alignment: AlignmentDirectional(0, 0),
@@ -140,6 +97,10 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                                   16, 40, 16, 16),
                               child: InkWell(
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'DETALHE_EVENTO_backArrowCircle_ON_TAP');
+                                  logFirebaseEvent(
+                                      'backArrowCircle_navigate_back');
                                   context.pop();
                                 },
                                 child: Card(
@@ -169,6 +130,7 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                               EdgeInsetsDirectional.fromSTEB(12, 16, 12, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               if (valueOrDefault<bool>(
                                       currentUserDocument?.integrante, false) ==
@@ -229,15 +191,20 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Expanded(
-                                child: Text(
-                                  valueOrDefault<String>(
-                                    widget.evento!.descricao,
-                                    'Sem Descrição do Evento',
+                              if (valueOrDefault<bool>(
+                                  currentUserDocument?.integrante, false))
+                                Expanded(
+                                  child: AuthUserStreamWidget(
+                                    child: Text(
+                                      valueOrDefault<String>(
+                                        widget.evento!.descricao,
+                                        'Sem Descrição do Evento',
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText2,
+                                    ),
                                   ),
-                                  style: FlutterFlowTheme.of(context).bodyText2,
                                 ),
-                              ),
                             ],
                           ),
                         ),
@@ -278,47 +245,56 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                                   ),
                                 ],
                               ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24, 0, 0, 4),
-                                    child: Icon(
-                                      Icons.location_on_sharp,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      size: 20,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        4, 0, 0, 0),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        await launchMap(
-                                          mapType: $ml.MapType.waze,
-                                          address:
-                                              '${detalheEventoLocaisRecord.endereco} ${detalheEventoLocaisRecord.numero?.toString()} ${detalheEventoLocaisRecord.bairro} ${detalheEventoLocaisRecord.cidade}',
-                                          title: '',
-                                        );
-                                      },
-                                      child: Text(
-                                        'Abrir endereço no Waze',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryColor,
-                                              fontWeight: FontWeight.w500,
-                                            ),
+                              if (valueOrDefault<bool>(
+                                      currentUserDocument?.integrante, false) ||
+                                  !widget.evento!.particular!)
+                                AuthUserStreamWidget(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            24, 0, 0, 4),
+                                        child: Icon(
+                                          Icons.location_on_sharp,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          size: 20,
+                                        ),
                                       ),
-                                    ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            4, 0, 0, 0),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            logFirebaseEvent(
+                                                'DETALHE_EVENTO_PAGE_Text-Location_ON_TAP');
+                                            logFirebaseEvent(
+                                                'Text-Location_launch_map');
+                                            await launchMap(
+                                              mapType: $ml.MapType.waze,
+                                              address:
+                                                  '${detalheEventoLocaisRecord.endereco} ${detalheEventoLocaisRecord.numero?.toString()} ${detalheEventoLocaisRecord.bairro} ${detalheEventoLocaisRecord.cidade}',
+                                              title: '',
+                                            );
+                                          },
+                                          child: Text(
+                                            'Abrir endereço no Waze',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
                             ],
                           ),
                         ),
@@ -357,16 +333,41 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                               verticalDirection: VerticalDirection.down,
                               clipBehavior: Clip.antiAlias,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 4, 0, 4),
-                                  child: SelectionArea(
+                                Visibility(
+                                  visible: valueOrDefault<bool>(
+                                          currentUserDocument?.integrante,
+                                          false) ||
+                                      !widget.evento!.particular!,
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 4, 0, 4),
+                                    child: AuthUserStreamWidget(
                                       child: Text(
-                                    '${detalheEventoLocaisRecord.endereco}, ${detalheEventoLocaisRecord.numero.toString()} - ${detalheEventoLocaisRecord.bairro} - ${detalheEventoLocaisRecord.cidade}',
-                                    textAlign: TextAlign.start,
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                  )),
+                                        '${detalheEventoLocaisRecord.endereco}, ${detalheEventoLocaisRecord.numero.toString()} - ${detalheEventoLocaisRecord.bairro} - ${detalheEventoLocaisRecord.cidade}',
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: !valueOrDefault<bool>(
+                                          currentUserDocument?.integrante,
+                                          false) &&
+                                      widget.evento!.particular!,
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 4, 0, 4),
+                                    child: AuthUserStreamWidget(
+                                      child: Text(
+                                        '*** Evento Particular ***',
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -429,21 +430,22 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 4, 0, 4),
-                                  child: Text(
-                                    valueOrDefault<String>(
-                                      widget.evento!.nomeContratante,
-                                      '-',
+                              if (valueOrDefault<bool>(
+                                  currentUserDocument?.integrante, false))
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 4, 0, 4),
+                                    child: AuthUserStreamWidget(
+                                      child: Text(
+                                        widget.evento!.nomeContratante!,
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
                                     ),
-                                    textAlign: TextAlign.start,
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
                                   ),
                                 ),
-                              ),
                             ],
                           ),
                         ),
@@ -468,21 +470,22 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 4, 0, 4),
-                                  child: Text(
-                                    valueOrDefault<String>(
-                                      widget.evento!.telefoneContratante,
-                                      '-',
+                              if (valueOrDefault<bool>(
+                                  currentUserDocument?.integrante, false))
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 4, 0, 4),
+                                    child: AuthUserStreamWidget(
+                                      child: Text(
+                                        widget.evento!.telefoneContratante!,
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
                                     ),
-                                    textAlign: TextAlign.start,
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
                                   ),
                                 ),
-                              ),
                             ],
                           ),
                         ),
@@ -507,21 +510,22 @@ class _DetalheEventoWidgetState extends State<DetalheEventoWidget> {
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 4, 0, 4),
-                                  child: Text(
-                                    valueOrDefault<String>(
-                                      detalheEventoLocaisRecord.observacao,
-                                      '-',
+                              if (valueOrDefault<bool>(
+                                  currentUserDocument?.integrante, false))
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 4, 0, 4),
+                                    child: AuthUserStreamWidget(
+                                      child: Text(
+                                        detalheEventoLocaisRecord.observacao!,
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
                                     ),
-                                    textAlign: TextAlign.start,
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
                                   ),
                                 ),
-                              ),
                             ],
                           ),
                         ),

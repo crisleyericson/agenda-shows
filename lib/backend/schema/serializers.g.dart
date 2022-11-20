@@ -8,6 +8,7 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(EventosRecord.serializer)
+      ..add(FinanceiroRecord.serializer)
       ..add(LocaisRecord.serializer)
       ..add(UsersRecord.serializer))
     .build();

@@ -26,6 +26,8 @@ abstract class LocaisRecord
 
   String? get telefone;
 
+  String? get logomarca;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -38,7 +40,8 @@ abstract class LocaisRecord
     ..nomeLocal = ''
     ..numero = 0
     ..observacao = ''
-    ..telefone = '';
+    ..telefone = ''
+    ..logomarca = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('locais');
@@ -70,6 +73,7 @@ Map<String, dynamic> createLocaisRecordData({
   int? numero,
   String? observacao,
   String? telefone,
+  String? logomarca,
 }) {
   final firestoreData = serializers.toFirestore(
     LocaisRecord.serializer,
@@ -82,7 +86,8 @@ Map<String, dynamic> createLocaisRecordData({
         ..nomeLocal = nomeLocal
         ..numero = numero
         ..observacao = observacao
-        ..telefone = telefone,
+        ..telefone = telefone
+        ..logomarca = logomarca,
     ),
   );
 
